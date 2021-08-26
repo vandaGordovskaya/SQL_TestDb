@@ -33,7 +33,3 @@ FROM (SELECT PP.FirstName,
        PP.LastName,
        HE.JobTitle
 FROM Person.Person PP CROSS JOIN HumanResources.Employee HE) AS Result
-
-
-
-5 875 980
