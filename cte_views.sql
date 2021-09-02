@@ -16,6 +16,7 @@ SELECT Title,
 FROM Person.vPerson
 ORDER BY LastName;
 GO
+-- Do not understand, requires clarification for approach
 WITH EmployeeData_CTE(BusinessEntityId, NationalIdNumber, JobTitle, FirstName, LastName)
 AS
 (
