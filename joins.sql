@@ -15,13 +15,16 @@ SELECT PP.FirstName,
        WHERE PP.BusinessEntityID = HE.BusinessEntityID) JobTitle
 FROM Person.Person PP
 GO
+-- Updated with "SELECT * FROM(" + ") t WHERE t.JobTitle IS NOT NULL"
+SELECT * FROM(
 SELECT PP.FirstName, 
        PP.LastName,
        (SELECT JobTitle
        FROM HumanResources.Employee HE
        WHERE PP.BusinessEntityID = HE.BusinessEntityID) JobTitle
-FROM Person.Person PP
-WHERE EXISTS (SELECT BusinessEntityID FROM HumanResources.Employee AS HE WHERE PP.BusinessEntityID = HE.BusinessEntityID)
+FROM Person.Person PP) t 
+WHERE t.JobTitle IS NOT NULL
+-- Removed "WHERE EXISTS (SELECT BusinessEntityID FROM HumanResources.Employee AS HE WHERE PP.BusinessEntityID = HE.BusinessEntityID)"
 GO
 SELECT PP.FirstName, 
        PP.LastName,
