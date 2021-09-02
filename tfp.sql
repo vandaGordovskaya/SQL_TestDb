@@ -47,6 +47,8 @@ RETURN
         ON hredp.BusinessEntityID = hre.BusinessEntityID
     WHERE hredp.DepartmentID = @DepartmentN
 );
+-- Did not add '%' at the beginning of the mask
+-- Forgot to add searching by Last Name
 GO
 CREATE PROCEDURE Person.uspSearchByName
     @SearchName varchar(255)
@@ -56,11 +58,11 @@ CREATE PROCEDURE Person.uspSearchByName
 -- and returns table with BusinessEntityId, FirstName, LastName
 
 AS
-    SELECT @SearchName = RTRIM(@SearchName) + '%';
+    SELECT @SearchName = '%' RTRIM(@SearchName) + '%';
     SELECT BusinessEntityId, 
 	   FirstName, 
 	   LastName
     FROM Person.Person
-    WHERE FirstName LIKE @SearchName;
+    WHERE FirstName LIKE @SearchName OR LastName LIKE @SearchName;
 GO
 EXEC Person.uspSearchByName @SearchName = 'John';
